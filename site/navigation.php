@@ -1,6 +1,4 @@
-<?php
-    $dbconntection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
-       
+<?php     
     //Navigation Home
     echo "<div class='nav-item'>";
     echo "<div class='nav-item-disc'>";
@@ -23,9 +21,9 @@
     
     
 
-    $catResult = mysqli_query($dbconntection,$select);
+    $catResult = mysqli_query($dbconnection,$select);
 
-    echo mysqli_error($dbconntection);
+    echo mysqli_error($dbconnection);
 
     foreach($catResult as $cat){
         echo "<div class='nav-item'>";
@@ -35,8 +33,8 @@
         echo "<div class='nav-item-drop-down'>";
         
         $select = "SELECT id,title FROM sites WHERE categorie = '$cat[id]' ORDER BY ordernumber ASC";
-        $siteResult = mysqli_query($dbconntection, $select);
-        echo mysqli_error($dbconntection);
+        $siteResult = mysqli_query($dbconnection, $select);
+        echo mysqli_error($dbconnection);
         foreach($siteResult as $site){               
                 echo "<div class='nav-item-drop-down-item'>";
                 echo "<a href='".$_SERVER['SCRIPT_NAME']."?cat=$cat[id]&site=$site[id]'>";
@@ -49,7 +47,6 @@
     }
 
     mysqli_free_result($catResult);
-    mysqli_close($dbconntection);
 
     if(!isset($_SESSION["username"])){
         //Navigation Login

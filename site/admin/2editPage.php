@@ -1,16 +1,14 @@
 <?php
-    $dbconnction = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
     if(isset($_POST["site"])){
         //Wenn eine Datei zum editieren ausgewählt wurde
         $siteId = $_POST["site"];
         $selectSite = "SELECT title,content,type FROM sites WHERE id=$siteId";
-        $result = mysqli_query($dbconnction,$selectSite);
+        $result = mysqli_query($dbconnection,$selectSite);
         $row = mysqli_fetch_assoc($result);
         $siteTitle = $row["title"];
         $siteContent = $row["content"];
         $siteType = $row["type"];
         mysqli_free_result($result);
-        mysqli_close($dbconnction);
         ?>
         <h2>Die Datei<?php echo " ".$_POST["site"] ?> wurde ausgewählt</h2>
         <form action="" name="editContent" method="POST">
@@ -35,20 +33,17 @@
     }
     elseif(isset($_POST["editContent"])){
         $siteId = $_POST["editSite"];
-        $siteTitle = mysqli_escape_string($dbconnction,htmlspecialchars($_POST["editTitle"]));
-        $siteContent = mysqli_escape_string($dbconnction,htmlspecialchars($_POST["editContent"]));
+        $siteTitle = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["editTitle"]));
+        $siteContent = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["editContent"]));
         $siteType = $_POST["editType"];
 
         $update = "UPDATE sites SET title='$siteTitle', content='$siteContent', type='$siteType' WHERE id=$siteId";
-        if(mysqli_query($dbconnction,$update)){
+        if(mysqli_query($dbconnection,$update)){
             echo "<h2>Die Seite $siteTitle wurde gespeichert</h2>";
         }else{
             echo "Es ist ein Fehler aufgetreten!";
-            echo mysqli_error($dbconnction);
-        }
-        mysqli_close($dbconnction);
-        
-        
+            echo mysqli_error($dbconnection);
+        }       
     }
     //Wenn noch keine Datei zum editieren ausgewählt wurde
     else{
@@ -58,17 +53,16 @@
             <select name="site">
                 <?php
                     $selectCats = "SELECT id,name FROM categories ORDER BY ordernumber ASC";
-                    $catResult = mysqli_query($dbconnction,$selectCats);
+                    $catResult = mysqli_query($dbconnection,$selectCats);
                     foreach($catResult as $cat){
                         $selectSites = "SELECT id,title FROM sites WHERE categorie=$cat[id] ORDER BY ordernumber ASC";
-                        $sitesResult = mysqli_query($dbconnction,$selectSites);
+                        $sitesResult = mysqli_query($dbconnection,$selectSites);
                         foreach($sitesResult as $site){
                             echo "<option value='$site[id]'>$cat[name]/$site[title]</option>";
                         }
                     }
                     mysqli_free_result($catResult);
                     mysqli_free_result($sitesResult);
-                    mysqli_close($dbconnction);
                 ?>
             </select>
             <br />

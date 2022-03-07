@@ -13,6 +13,7 @@ body{
                 0px 0px 15px rgba(0,0,0,0.5);
 }
 #content{
+    width: calc(100% - 20px);
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: rgb(156, 167, 145);
@@ -23,7 +24,7 @@ body{
     padding: 10px;
 }
 #wrapper{
-    margin: 10px;
+    width: 100%;
     min-height: 480px;
 }
 footer{
@@ -47,6 +48,9 @@ footer a{
 pre{
     font-family: Arial, Helvetica, sans-serif;
     font-size: medium;
+    width: 100%;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
 }
 .content-info{
     margin: 10px;

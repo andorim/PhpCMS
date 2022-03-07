@@ -1,9 +1,8 @@
 <?php
     if(isset($_POST["catName"])){
-        $dbconnction = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
 
         $selectLastOrderNumber = "SELECT ordernumber FROM categories ORDER BY ordernumber DESC LIMIT 1";
-        $result = mysqli_query($dbconnction,$selectLastOrderNumber);
+        $result = mysqli_query($dbconnection,$selectLastOrderNumber);
         $lastOrderNumber = 0;
         if(($row = mysqli_fetch_assoc($result)) !== NULL){
             $lastOrderNumber = $row["ordernumber"];
@@ -15,14 +14,13 @@
         $insert = "INSERT INTO categories (name,ordernumber,authlevel)
                         VALUES ('$name',$nextOrdernumber,'$authlevel')";
 
-        if(mysqli_query($dbconnction,$insert)){
+        if(mysqli_query($dbconnection,$insert)){
             echo "Die Kategorie $name wurde angelegt!";
         }else{
             echo "Es ist ein Fehler aufgetreten!";
-            echo mysqli_error($dbconnction);
+            echo mysqli_error($dbconnection);
         }
         mysqli_free_result($result);
-        mysqli_close($dbconnction);
     }
 ?>
 <form id="formNewPage" action="" method="post">

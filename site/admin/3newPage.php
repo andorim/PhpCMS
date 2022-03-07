@@ -1,13 +1,12 @@
 <?php
-$dbconnction = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
 if(isset($_POST["catId"]) && isset($_POST["name"]) && isset($_POST["typ"]) && isset($_POST["inputContent"])){
     $catId = $_POST["catId"];
-    $title = mysqli_escape_string($dbconnction,htmlspecialchars($_POST["name"]));
+    $title = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["name"]));
     $type = $_POST["typ"];
-    $content = mysqli_escape_string($dbconnction,htmlspecialchars($_POST["inputContent"])); 
+    $content = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["inputContent"])); 
     $selectLastOrderNumber = "SELECT ordernumber FROM sites  WHERE categorie=$catId ORDER BY ordernumber DESC LIMIT 1";
-    $result = mysqli_query($dbconnction,$selectLastOrderNumber);
-    echo mysqli_error($dbconnction);
+    $result = mysqli_query($dbconnection,$selectLastOrderNumber);
+    echo mysqli_error($dbconnection);
     $lastOrderNumber = 0;
     if(($row = mysqli_fetch_assoc($result)) !== NULL){
         $lastOrderNumber = $row["ordernumber"];
@@ -17,14 +16,13 @@ if(isset($_POST["catId"]) && isset($_POST["name"]) && isset($_POST["typ"]) && is
                 VALUES ($catId,'$title','$content','$type',$nextOrderNumber)";
 
 
-    mysqli_query($dbconnction,$insert);
+    mysqli_query($dbconnection,$insert);
 
-    echo mysqli_error($dbconnction);
+    echo mysqli_error($dbconnection);
     
     echo "<h2>Die seite $title wurde angelegt!</h2>";
 
     mysqli_free_result($result);
-    mysqli_close($dbconnction);
 
     ?>
 <?php
@@ -38,13 +36,12 @@ if(isset($_POST["catId"]) && isset($_POST["name"]) && isset($_POST["typ"]) && is
             <?php
 
                 $catSelect = "SELECT * FROM categories WHERE NOT id=1 ORDER BY ordernumber ASC";
-                $catResult = mysqli_query($dbconnction,$catSelect);
+                $catResult = mysqli_query($dbconnection,$catSelect);
 
                 foreach($catResult as $cat){
                     echo "<option value='$cat[id]'>".$cat["name"]."</option>";
                 }
                 mysqli_free_result($catResult);
-                mysqli_close($dbconnction);
             ?>
         </select>
         <br />

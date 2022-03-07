@@ -41,7 +41,6 @@ if(isset($_SESSION["authorization"]) == "ADMIN"){
         <th class="date">Datum</th>
     </tr>
     <?php
-        $dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
 
         $select = "SELECT sender_name, sender_mail, content, created FROM contacts";
 

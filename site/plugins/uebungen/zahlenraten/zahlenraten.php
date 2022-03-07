@@ -28,14 +28,13 @@
         global $tries;
         global $massage;
         global $userId;
+        global $dbconnection;
 
-        $dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
         $select = "SELECT id,min,max,randomnumber,tries FROM zahlenraten WHERE solved=0 AND userid=$userId ORDER BY id DESC LIMIT 1";
         $result = mysqli_query($dbconnection,$select);
         
         echo mysqli_error($dbconnection);
 
-        mysqli_close($dbconnection);
 
         if(($row = mysqli_fetch_assoc($result)) !== NULL){
             
@@ -52,6 +51,7 @@
         }
     }
     function setNewGame(){
+        global $dbconnection;
         global $min;
         global $max;
         global $gameNo;
@@ -63,7 +63,6 @@
         $randomNumber = rand($min,$max);
         $tries = 1;
 
-        $dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
 
         $insert = "INSERT INTO zahlenraten (userid,min,max,randomnumber)
             	        VALUES ($userId,$min,$max,$randomNumber)";
@@ -78,10 +77,9 @@
             $gameNo = $row["id"];
             $massage = "Neues Spiel erstellt!";
         }
-        mysqli_close($dbconnection);
     }
     function updateGame($solved){
-        $dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
+        global $dbconnection;
         global $gameNo;
         global $tries;
         $update = "";
@@ -94,7 +92,6 @@
             $update = "UPDATE zahlenraten SET tries=$tries WHERE id=$gameNo";
             mysqli_query($dbconnection,$update);
         }
-        mysqli_close($dbconnection);
     }
     setActiveGame();
     if(isset($_POST["guess"])){
@@ -210,8 +207,6 @@
         </thead>
         <tbody>
         <?php
-            $dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
-
             $select = "SELECT id,min,max,randomnumber,tries FROM zahlenraten WHERE solved=1 AND userid=$userId ORDER BY id DESC";
             $result = mysqli_query($dbconnection,$select);
             foreach($result as $row){
@@ -223,7 +218,6 @@
                 echo "<td>$row[tries]</td>";
                 echo "</tr>";
             }
-            mysqli_close($dbconnection);
         ?>
         </tbody>
     </table>

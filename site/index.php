@@ -1,4 +1,5 @@
-<?php require("./conf/conf.php");?>
+<?php require("./conf/conf.php");
+$dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);?>
 
 <?php 
     session_start(["name" => "CMS", "cookie_path" => $_SERVER["PHP_SELF"]]);
@@ -41,7 +42,7 @@
         </div>
         <nav>
             <?php
-                include("navigation.php");
+                require("navigation.php");
             ?>
         </nav>
         <main id="content">
@@ -79,11 +80,11 @@
         </main>
         <footer>
             <?php
-                include("footer.php");
+                require("footer.php");
             ?>
         </footer>
         <?php
-
+            mysqli_close($dbconnection);
         ?>
     </body>
     

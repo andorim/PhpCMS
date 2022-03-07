@@ -4,7 +4,6 @@
     $cat = $_GET["cat"];
     $authorized = false;
 
-    $dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
     $contentRow = "";
     $selectCatAuthLevel = "SELECT authlevel FROM categories WHERE id=$cat";
     $result = mysqli_query($dbconnection,$selectCatAuthLevel);
@@ -35,7 +34,6 @@
         $select = "SELECT title,content,type,created,updated FROM sites WHERE id=$site AND categorie=$cat";
 
         $result = mysqli_query($dbconnection,$select);
-        mysqli_close($dbconnection);
         if(($contentRow = mysqli_fetch_assoc($result)) !== NULL){
             if($contentRow["type"] == "txt"){
                 echo "<h2>$contentRow[title]</h2>";

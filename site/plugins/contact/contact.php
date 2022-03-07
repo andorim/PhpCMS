@@ -1,6 +1,5 @@
 <?php 
     if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["request"])){
-        $dbconnection = mysqli_connect(DATABASE_SERVER,DATABASE_USER,DATABASE_PASWD,DATABASE_NAME);
         $senderName = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["name"]));
         $senderMail = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["email"]));
         $content = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["request"]));
@@ -19,7 +18,6 @@
                 echo "Es ist ein Fehler aufgetreten!";
                 echo mysqli_error($dbconnection);
             }
-            mysqli_close($dbconnection);
         }else{
             echo "Sie haben eine falsche Email-Adresse angegeben, bitte versuchen Sie es erneut!";
         }

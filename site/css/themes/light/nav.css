@@ -1,0 +1,44 @@
+nav{
+    height: 45px;
+    background-color: rgb(241, 241, 241);
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+
+}
+nav a{
+    color: black;
+    vertical-align: text-bottom;
+    text-decoration: none;
+}
+.nav-item{
+    float: left;
+    min-width: 100px;
+    height: 45px;
+    border-right: 1px solid black;
+    text-align: center;
+    color: black; 
+}
+nav .admin{
+    float: right;
+    border-left: 1px solid black;
+    border-right: none;
+}
+.nav-item-disc{
+    padding: 13px 10px;
+}
+.nav-item-drop-down{
+    display: none;
+    position: absolute;
+    min-width: 118px;
+}
+.nav-item-drop-down-item{
+    height: 25px;
+    background-color: rgb(221, 221, 221);
+    text-align: center;
+    padding: 15px;   
+}
+.nav-item-drop-down-item:hover{
+    background-color: rgb(243, 243, 243);
+}
+.nav-item:hover .nav-item-drop-down{
+    display: block;
+}

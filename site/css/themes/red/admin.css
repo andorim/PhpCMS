@@ -1,0 +1,20 @@
+#content form label{
+    margin-top: 5px;
+    display: block;
+    width: 90%;
+    font-weight: bold;
+}
+select{
+    width: 150px;
+}
+input{
+    width: 150px;
+}
+#inputContent{
+    width: 90%;
+    height: 500px;
+}
+#editContent{
+    width: 90%;
+    height: 500px;
+}

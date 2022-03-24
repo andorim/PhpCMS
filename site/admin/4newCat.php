@@ -9,11 +9,10 @@
         }
         $nextOrdernumber = $lastOrderNumber + 1; 
 
-        $name = $_POST["catName"];
-        $authlevel = $_POST["authlevel"];
+        $name = mysqli_real_escape_string($dbconnection,$_POST["catName"]);
+        $authlevel = mysqli_real_escape_string($dbconnection,$_POST["authlevel"]);
         $insert = "INSERT INTO categories (name,ordernumber,authlevel)
                         VALUES ('$name',$nextOrdernumber,'$authlevel')";
-        $insert = mysqli_real_escape_string($dbconnection,$insert);
         if(mysqli_query($dbconnection,$insert)){
             echo "Die Kategorie $name wurde angelegt!";
         }else{

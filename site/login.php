@@ -3,9 +3,10 @@ $massage = "";
 if(isset($_POST["login"])){
     $name = $_POST["username"];
     $passwd = $_POST["passwd"];
-
+    $name = mysqli_real_escape_string($dbconnection,$name);
+    $passwd = mysqli_real_escape_string($dbconnection,$passwd);
     $select = "SELECT id, name, passwd, authorization FROM user WHERE name='$name'";
-    $select = mysqli_real_escape_string($dbconnection,$select);
+    
     $result = mysqli_query($dbconnection,$select);
     if(($row = mysqli_fetch_assoc($result)) !== NULL){
         if(password_verify($passwd,$row["passwd"])){

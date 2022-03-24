@@ -6,7 +6,7 @@
 
     $contentRow = "";
     $selectCatAuthLevel = "SELECT authlevel FROM categories WHERE id=$cat";
-    $selectCatAuthLevel = mysqli_real_escape_string($dbconnectionm,$selectCatAuthLevel);
+    $selectCatAuthLevel = mysqli_real_escape_string($dbconnection,$selectCatAuthLevel);
     $result = mysqli_query($dbconnection,$selectCatAuthLevel);
     echo mysqli_error($dbconnection);
     

@@ -19,7 +19,6 @@
         $select = "SELECT id,name FROM categories WHERE NOT id=1 AND authlevel='PUBLIC' ORDER BY ordernumber ASC";
     }
     
-    $select = mysqli_real_escape_string($dbconnection,$select);
 
     $catResult = mysqli_query($dbconnection,$select);
 
@@ -33,7 +32,7 @@
         echo "<div class='nav-item-drop-down'>";
         
         $select = "SELECT id,title FROM sites WHERE categorie = '$cat[id]' ORDER BY ordernumber ASC";
-        $select = mysqli_real_escape_string($dbconnection,$select);
+
         $siteResult = mysqli_query($dbconnection, $select);
         echo mysqli_error($dbconnection);
         foreach($siteResult as $site){               

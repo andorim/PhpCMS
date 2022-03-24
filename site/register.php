@@ -1,7 +1,7 @@
 <?php
     if(isset($_POST["register"])){
-        $username = $_POST["username"];
-        $passwdClear = $_POST["passwd"];
+        $username = mysqli_real_escape_string($dbconnection,$_POST["username"]);
+        $passwdClear = mysqli_real_escape_string($dbconnection,$_POST["passwd"]);
 
         $regExUser = "/^[a-zA-Z0-9]{4,50}$/";
         $regExPasswd = "/^(?!.*?[äüöß])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,}$/";
@@ -10,7 +10,6 @@
             $passwdHash = password_hash($passwdClear, PASSWORD_DEFAULT);
             
             $insert = "INSERT INTO user (name, passwd) VALUES ('$username', '$passwdHash')";
-            $insert = mysqli_real_escape_string($dbconnection,$insert);
             mysqli_query($dbconnection,$insert);
 
             if(mysqli_errno($dbconnection) !== 0){

@@ -13,7 +13,7 @@
         $authlevel = $_POST["authlevel"];
         $insert = "INSERT INTO categories (name,ordernumber,authlevel)
                         VALUES ('$name',$nextOrdernumber,'$authlevel')";
-
+        $insert = mysqli_real_escape_string($dbconnection,$insert);
         if(mysqli_query($dbconnection,$insert)){
             echo "Die Kategorie $name wurde angelegt!";
         }else{

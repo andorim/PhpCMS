@@ -10,7 +10,7 @@
             $passwdHash = password_hash($passwdClear, PASSWORD_DEFAULT);
             
             $insert = "INSERT INTO user (name, passwd) VALUES ('$username', '$passwdHash')";
-
+            $insert = mysqli_real_escape_string($dbconnection,$insert);
             mysqli_query($dbconnection,$insert);
 
             if(mysqli_errno($dbconnection) !== 0){
@@ -43,12 +43,12 @@
         ?>
         <h2>Registrieren</h2>
         <form action="" method="POST">
-        <label>Benutzername: (mindestens 4 Zeichen, keine Sonderzeichen)</label>
-        <input type="text" name="username" />
-        <label>Passwort: (mindestens 1 Großbuchstabe, 1 Kleinbuchstabe, eine Zahl und ein Sonderzeichen(#?!@$%^&*-.))</label>
-        <input type="password" name="passwd" />
-        <br />
-        <input type="submit" name="register" value="Einloggen" />
+            <label>Benutzername: (mindestens 4 Zeichen, keine Sonderzeichen)</label>
+            <input type="text" name="username" />
+            <label>Passwort: (mindestens 1 Großbuchstabe, 1 Kleinbuchstabe, eine Zahl und ein Sonderzeichen(#?!@$%^&*-.))</label>
+            <input type="password" name="passwd" />
+            <br />
+            <input type="submit" name="register" value="Registrieren" />
         </form>
         <p><?php echo $massage ?></p>
         <?php

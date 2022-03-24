@@ -1,8 +1,8 @@
 <?php 
     if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["request"])){
-        $senderName = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["name"]));
-        $senderMail = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["email"]));
-        $content = mysqli_escape_string($dbconnection,htmlspecialchars($_POST["request"]));
+        $senderName = htmlspecialchars($_POST["name"]);
+        $senderMail = htmlspecialchars($_POST["email"]);
+        $content = htmlspecialchars($_POST["request"]);
 
         // Überprüfen ob E-Mail Valide sein könnte
         
@@ -10,7 +10,7 @@
         if(filter_var($senderMail,FILTER_VALIDATE_EMAIL) !== false ){
             $insert = "INSERT INTO contacts (sender_name,sender_mail,content) 
                             VALUES ('$senderName','$senderMail','$content')";
-
+            $insert = mysqli_real_escape_string($dbconnection,$insert);
             if(mysqli_query($dbconnection,$insert)){
                 echo "Danke ".$senderName." Ihre Anfrage wurde erfolgreich übermittelt.<br />";
             echo "Wir werden Sie unter der E-Mail Adresse ".$senderMail." kontaktieren.";

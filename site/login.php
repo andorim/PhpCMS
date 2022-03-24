@@ -5,7 +5,7 @@ if(isset($_POST["login"])){
     $passwd = $_POST["passwd"];
 
     $select = "SELECT id, name, passwd, authorization FROM user WHERE name='$name'";
-
+    $select = mysqli_real_escape_string($dbconnection,$select);
     $result = mysqli_query($dbconnection,$select);
     if(($row = mysqli_fetch_assoc($result)) !== NULL){
         if(password_verify($passwd,$row["passwd"])){

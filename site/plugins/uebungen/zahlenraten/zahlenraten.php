@@ -31,6 +31,7 @@
         global $dbconnection;
 
         $select = "SELECT id,min,max,randomnumber,tries FROM zahlenraten WHERE solved=0 AND userid=$userId ORDER BY id DESC LIMIT 1";
+        $select = mysqli_real_escape_string($dbconnection,$select);
         $result = mysqli_query($dbconnection,$select);
         
         echo mysqli_error($dbconnection);
@@ -66,11 +67,11 @@
 
         $insert = "INSERT INTO zahlenraten (userid,min,max,randomnumber)
             	        VALUES ($userId,$min,$max,$randomNumber)";
-
+        $insert = mysqli_real_escape_string($dbconnection,$insert);
         mysqli_query($dbconnection,$insert);
 
         $select = "SELECT id FROM zahlenraten ORDER BY id DESC LIMIT 1";
-
+        $select = mysqli_real_escape_string($dbconnection,$select);
         $result = mysqli_query($dbconnection,$select);
 
         if(($row = mysqli_fetch_assoc($result)) !== NULL){
@@ -86,10 +87,12 @@
 
         if($solved){
             $update = "UPDATE zahlenraten SET tries=$tries, solved=1 WHERE id=$gameNo";
+            $update = mysqli_real_escape_string($dbconnection,$update);
             mysqli_query($dbconnection,$update);
         }else{
             $tries++;
             $update = "UPDATE zahlenraten SET tries=$tries WHERE id=$gameNo";
+            $upadte = mysqli_real_escape_string($dbconnection,$update);
             mysqli_query($dbconnection,$update);
         }
     }
@@ -208,6 +211,7 @@
         <tbody>
         <?php
             $select = "SELECT id,min,max,randomnumber,tries FROM zahlenraten WHERE solved=1 AND userid=$userId ORDER BY id DESC";
+            $select = mysqli_real_escape_string($dbconnection,$select);
             $result = mysqli_query($dbconnection,$select);
             foreach($result as $row){
                 echo "<tr>";
